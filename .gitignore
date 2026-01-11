@@ -26,3 +26,8 @@ Thumbs.db
 # Database
 *.db
 *.sqlite
+
+
+# Generated / temporary files
+genes
+
