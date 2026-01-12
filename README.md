@@ -61,6 +61,7 @@ Key Libraries:
 
 🛠️ **Repository Structure**
 omicshub/
+ 
   ├── scripts/              # ETL and data ingestion scripts
   ├── database/             # Schema definitions and migrations
   ├── api/                  # API layer (in progress)
