@@ -79,12 +79,12 @@ omicshub/
 
    pip install -r requirements.txt
 
-*Run the gene ingestion pipeline:*
+**Run the gene ingestion pipeline**:
 
-  python scripts/fetch_genes_simple.py
-  python scripts/add_sample_go_annotations.py
-  python scripts/fetch_ontology.py
-  python scripts/link_genes_to_go.py
+ * python scripts/fetch_genes_simple.py
+ * python scripts/add_sample_go_annotations.py
+ * python scripts/fetch_ontology.py
+ * python scripts/link_genes_to_go.py
 
   
   
