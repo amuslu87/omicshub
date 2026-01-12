@@ -1,8 +1,8 @@
 🧬 OmicsHub: Computational Infrastructure for Genomics Research
 
-A scalable, end-to-end data infrastructure platform for biological and genetic research, demonstrating production-grade bioinformatics data engineering skills.
+This is a Portfolio Study for Mid to Senior Level Bioinformaticians who are interested in scalable, end-to-end data infrastructure platform for biological and genetic research, providing production-grade bioinformatics data engineering capabilities.
 
-## 🎯 Project Overview
+ 🎯 Project Overview
 
 OmicsHub showcases skills in:
 - Data modeling with biological ontologies (GO, HPO)
@@ -11,14 +11,14 @@ OmicsHub showcases skills in:
 - Containerization & workflow orchestration
 - Cloud deployment (AWS)
 
-## ✨ Current Features
+ ✨ Current Features
 
 - ✅ NCBI Entrez API integration for gene data retrieval
 - ✅ PostgreSQL database with normalized schema
 - ✅ 10 cancer-related genes loaded and validated
 - ✅ Tested database connectivity with psycopg2
 
-## 🗄️ Database Schema
+ 🗄️ Database Schema
 
 **genes** table:
 - `gene_id` (INTEGER, PRIMARY KEY)
@@ -28,11 +28,11 @@ OmicsHub showcases skills in:
 - `gene_type` (VARCHAR)
 - `fetch_date` (TIMESTAMP)
 
-## 📊 Sample Data
+📊 Sample Data
 
 Currently loaded: BRCA1, BRCA2, TP53, PTEN, KRAS, EGFR, NRAS, BRAF, PIK3CA, MAPK1
 
-## 🛠️ Tech Stack
+ 🛠️ Tech Stack
 
 - **Language**: Python 3.13.2
 - **Database**: PostgreSQL 16
@@ -42,7 +42,7 @@ Currently loaded: BRCA1, BRCA2, TP53, PTEN, KRAS, EGFR, NRAS, BRAF, PIK3CA, MAPK
   - psycopg2-binary 2.9.11
   - fastapi 0.128.0
 
-## 🚀 Quick Start
+ 🚀 Quick Start
 ```bash
 # Clone repository
 git clone git@github.com:amuslu87/omicshub.git
