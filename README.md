@@ -1,59 +1,90 @@
-🧬 OmicsHub: Computational Infrastructure for Genomics Research
+🧬 **OmicsHub: A Scalable, Ontology-Aware Genomics Data Infrastructure Platform**
 
-This is a Portfolio Study for Mid to Senior Level Bioinformaticians who are interested in scalable, end-to-end data infrastructure platform for biological and genetic research, providing production-grade bioinformatics data engineering capabilities.
+OmicsHub is a portfolio-grade computational infrastructure project designed to demonstrate end-to-end data engineering capabilities for genomics and biological research. The repository focuses on building production-oriented pipelines that integrate biological ontologies, public genomics resources, and modern backend technologies.
 
- 🎯 Project Overview
+This project is intended for mid to senior-level bioinformaticians, computational biologists, and data infrastructure scientists interested in scalable, reproducible genomics platforms.
 
-OmicsHub showcases skills in:
-- Data modeling with biological ontologies (GO, HPO)
-- ETL pipeline development
-- RESTful API design
-- Containerization & workflow orchestration
-- Cloud deployment (AWS)
+ 🎯 **Project Overview**
 
- ✨ Current Features
+The primary goals of OmicsHub are to:
+* Design a normalized relational data model for genomic entities
+* Integrate biological ontologies into downstream data workflows
+* Implement reproducible ETL pipelines for public genomics data
+* Expose structured biological data through programmatic interfaces
+* Demonstrate containerized, cloud-ready execution patterns
 
-- ✅ NCBI Entrez API integration for gene data retrieval
-- ✅ PostgreSQL database with normalized schema
-- ✅ 10 cancer-related genes loaded and validated
-- ✅ Tested database connectivity with psycopg2
+ ✨ **Current Capabilities**
 
- 🗄️ Database Schema
+OmicsHub currently demonstrates the following competencies:
+* Biological data modeling with ontology-aware schema design
+* ETL pipeline development for gene metadata ingestion
+* Programmatic access to public genomics resources
+* Relational database design and validation
+* Backend-ready architecture suitable for API and analytics layers
 
-**genes** table:
-- `gene_id` (INTEGER, PRIMARY KEY)
-- `symbol` (VARCHAR)
-- `description` (TEXT)
-- `chromosome` (VARCHAR)
-- `gene_type` (VARCHAR)
-- `fetch_date` (TIMESTAMP)
+ ✨ **Current Features**
 
-📊 Sample Data
+* Integration with the NCBI Entrez API for gene metadata retrieval
+* PostgreSQL database with a normalized gene schema
+* Automated ingestion and validation of curated gene sets
+* Verified database connectivity using Python-based clients
+* Modular project structure designed for extension
+ 
+ 🗄️ **Database Schema**
 
-Currently loaded: BRCA1, BRCA2, TP53, PTEN, KRAS, EGFR, NRAS, BRAF, PIK3CA, MAPK1
+*Genes Table*:
+| Column Name | Type      | Description                 |
+| ----------- | --------- | --------------------------- |
+| gene_id     | INTEGER   | Primary key                 |
+| symbol      | VARCHAR   | Official gene symbol        |
+| description | TEXT      | Functional gene description |
+| chromosome  | VARCHAR   | Chromosomal location        |
+| gene_type   | VARCHAR   | Gene classification         |
+| fetch_date  | TIMESTAMP | Data retrieval timestamp    |
 
- 🛠️ Tech Stack
 
-- **Language**: Python 3.13.2
-- **Database**: PostgreSQL 16
-- **Key Libraries**: 
+📊 **Sample Data**
+
+The following genes are currently ingested and validated within the database: BRCA1, BRCA2, TP53, PTEN, KRAS, EGFR, NRAS, BRAF, PIK3CA, MAPK1
+
+These genes were selected to support downstream use cases such as oncology-focused analytics, pathway annotation, and ontology-driven querying.
+
+ 🛠️ **Technology Stack**
+
+Programming Language: Python 3.13.2
+Database: PostgreSQL 16
+Key Libraries: 
   - Biopython 1.83
   - pandas 2.3.3
   - psycopg2-binary 2.9.11
   - fastapi 0.128.0
 
- 🚀 Quick Start
-```bash
-# Clone repository
-git clone git@github.com:amuslu87/omicshub.git
-cd omicshub
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
+🛠️ **Repository Structure**
+omicshub/
+  ├── scripts/              # ETL and data ingestion scripts
+  ├── database/             # Schema definitions and migrations
+  ├── api/                  # API layer (in progress)
+  ├── requirements.txt      # Python dependencies
+  └── README.md
 
-# Install dependencies
-pip install -r requirements.txt
+ 🚀 **Quick Start**
+*Clone the repository and set up the local environment:*
 
-# Run gene fetcher
-python scripts/fetch_genes_simple.py
-```
+   git clone git@github.com:amuslu87/omicshub.git
+   cd omicshub
+
+   python3 -m venv venv
+   source venv/bin/activate
+
+   pip install -r requirements.txt
+
+*Run the gene ingestion pipeline:*
+
+  python scripts/fetch_genes_simple.py
+  python scripts/add_sample_go_annotations.py
+  python scripts/fetch_ontology.py
+  python scripts/link_genes_to_go.py
+
+  
+  
+
