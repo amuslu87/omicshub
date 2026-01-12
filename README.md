@@ -22,7 +22,7 @@ OmicsHub currently demonstrates the following competencies:
 * Relational database design and validation
 * Backend-ready architecture suitable for API and analytics layers
 
- ✨ **Current Features**
+ 🎉 **Current Features**
 
 * Integration with the NCBI Entrez API for gene metadata retrieval
 * PostgreSQL database with a normalized gene schema
