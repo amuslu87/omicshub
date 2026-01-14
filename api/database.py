@@ -2,16 +2,18 @@
 Database connection utilities for OmicsHub API
 """
 
+import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager
 
-# Database configuration
+# Database configuration - uses environment variables with fallback to localhost
 DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'omicshub',
-    'user': 'postgres',
-    'password': '7856'
+    'host': os.getenv('DATABASE_HOST', 'localhost'),
+    'database': os.getenv('DATABASE_NAME', 'omicshub'),
+    'user': os.getenv('DATABASE_USER', 'postgres'),
+    'password': os.getenv('DATABASE_PASSWORD', '7856'),
+    'port': int(os.getenv('DATABASE_PORT', '5432'))
 }
 
 @contextmanager

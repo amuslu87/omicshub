@@ -1,125 +1,130 @@
+#!/usr/bin/env python3
 """
-OmicsHub - Simple Gene Fetcher (using esummary)
+Simple gene fetcher for OmicsHub
+Fetches basic gene information from NCBI
 """
 
+import os
 from Bio import Entrez
-import pandas as pd
 import psycopg2
 from datetime import datetime
-import os
 
+# Set your email for NCBI
+Entrez.email = "your.email@example.com"
 
-Entrez.email = "amuslu@nmu.edu"  # ← CHANGE THIS
-
+# Database configuration - uses environment variables with fallback
 DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'omicshub',
-    'user': 'postgres',
-    'password': '7856'
+    'host': os.getenv('DATABASE_HOST', 'localhost'),
+    'database': os.getenv('DATABASE_NAME', 'omicshub'),
+    'user': os.getenv('DATABASE_USER', 'postgres'),
+    'password': os.getenv('DATABASE_PASSWORD', '7856'),
+    'port': int(os.getenv('DATABASE_PORT', '5432'))
 }
 
+def create_genes_table(conn):
+    """Create genes table if it doesn't exist"""
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS genes (
+            gene_id INTEGER PRIMARY KEY,
+            symbol VARCHAR(50) UNIQUE NOT NULL,
+            description TEXT,
+            chromosome VARCHAR(10),
+            gene_type VARCHAR(50),
+            fetch_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    print("✅ Genes table ready")
 def fetch_gene_info_simple(gene_ids):
     """Fetch using esummary (simpler)"""
     print(f"🔍 Fetching information for {len(gene_ids)} genes...")
-
+    
+    handle = Entrez.esummary(db="gene", id=",".join(map(str, gene_ids)))
+    records = Entrez.read(handle)
+    handle.close()
+    
     genes_data = []
+    for record in records['DocumentSummarySet']['DocumentSummary']:
+        genes_data.append({
+            'gene_id': int(record['Id']),
+            'symbol': record.get('Name', 'Unknown'),
+            'description': record.get('Description', ''),
+            'chromosome': record.get('Chromosome', ''),
+            'gene_type': record.get('GeneType', '')
+        })
+        print(f"  ✓ {record.get('Name', 'Unknown')}")
+    
+    return genes_data
 
-    for gene_id in gene_ids:
-        try:
-            handle = Entrez.esummary(db="gene", id=str(gene_id))
-            record = Entrez.read(handle)
-            handle.close()
-
-            if record['DocumentSummarySet']['DocumentSummary']:
-                summary = record['DocumentSummarySet']['DocumentSummary'][0]
-
-                gene_data = {
-                    'gene_id': int(gene_id),
-                    'symbol': summary.get('Name', 'Unknown'),
-                    'description': summary.get('Description', ''),
-                    'chromosome': summary.get('Chromosome', None),
-                    'gene_type': summary.get('GeneType', 'unknown'),
-                    'fetch_date': datetime.now()
-                }
-
-                genes_data.append(gene_data)
-                print(f"  ✓ {gene_data['symbol']}")
-
-        except Exception as e:
-            print(f"  ✗ Error fetching gene {gene_id}: {e}")
-            continue
-
-    return pd.DataFrame(genes_data)
-
-def create_genes_table(conn):
-    """Create genes table"""
+def load_to_database(genes_data):
+    """Load genes into PostgreSQL"""
+    conn = psycopg2.connect(**DB_CONFIG)
+    print("  ✅ Connected to database")
+    
+    create_genes_table(conn)
+    
     cursor = conn.cursor()
-
-    create_table_sql = """
-    CREATE TABLE IF NOT EXISTS genes (
-        gene_id INTEGER PRIMARY KEY,
-        symbol VARCHAR(50) NOT NULL,
-        description TEXT,
-        chromosome VARCHAR(10),
-        gene_type VARCHAR(50),
-        fetch_date TIMESTAMP,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
-
-    CREATE INDEX IF NOT EXISTS idx_genes_symbol ON genes(symbol);
-    """
-
-    cursor.execute(create_table_sql)
+    
+    for gene in genes_data:
+        cursor.execute("""
+            INSERT INTO genes (gene_id, symbol, description, chromosome, gene_type, fetch_date)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON CONFLICT (gene_id) DO UPDATE SET
+                symbol = EXCLUDED.symbol,
+                description = EXCLUDED.description,
+                chromosome = EXCLUDED.chromosome,
+                gene_type = EXCLUDED.gene_type,
+                fetch_date = EXCLUDED.fetch_date
+        """, (
+            gene['gene_id'],
+            gene['symbol'],
+            gene['description'],
+            gene['chromosome'],
+            gene['gene_type'],
+            datetime.now()
+        ))
+    
     conn.commit()
+ # Verify
+    cursor.execute("SELECT gene_id, symbol, chromosome FROM genes ORDER BY gene_id")
+    results = cursor.fetchall()
+    
+    print("\n" + "="*60)
+    print(f"  gene_id  symbol    chromosome")
+    for row in results:
+        print(f"  {row[0]:6d}  {row[1]:8s}  {row[2]:3s}")
+    
     cursor.close()
-    print("✅ Table 'genes' created")
-
-def load_to_database(df):
-    """Load to database"""
-    try:
-        conn = psycopg2.connect(**DB_CONFIG)
-        print("🔌 Connected to database")
-
-        create_genes_table(conn)
-
-        cursor = conn.cursor()
-
-        for _, row in df.iterrows():
-            cursor.execute("""
-                INSERT INTO genes (gene_id, symbol, description, chromosome, gene_type, fetch_date)
-                VALUES (%s, %s, %s, %s, %s, %s)
-                ON CONFLICT (gene_id) DO UPDATE SET
-                    symbol = EXCLUDED.symbol,
-                    description = EXCLUDED.description;
-            """, (row['gene_id'], row['symbol'], row['description'], 
-                  row['chromosome'], row['gene_type'], row['fetch_date']))
-
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-        print(f"✅ Loaded {len(df)} genes to database")
-
-    except Exception as e:
-        print(f"❌ Error: {e}")
+    conn.close()
+    print("="*60)
 
 def main():
-    print("=" * 60)
+    print("="*60)
     print("🧬 OmicsHub Gene Fetcher (Simple)")
-    print("=" * 60)
-
-    gene_ids = [672, 675, 7157, 5728, 3845, 1956, 4893, 673, 5290, 5594]
-
-    df = fetch_gene_info_simple(gene_ids)
-
-    if not df.empty:
-        print("\n" + "=" * 60)
-        print(df[['gene_id', 'symbol', 'chromosome']].to_string(index=False))
-        print("=" * 60)
-
-        load_to_database(df)
-
-        print("\n🎉 Success!")
+    print("="*60)
+    
+    # 10 important cancer genes
+    gene_ids = [
+        672,    # BRCA1
+        675,    # BRCA2
+        7157,   # TP53
+        5728,   # PTEN
+        3845,   # KRAS
+        1956,   # EGFR
+        4893,   # NRAS
+        673,    # BRAF
+        5290,   # PIK3CA
+        5594    # MAPK1
+    ]
+    
+    # Fetch genes
+    genes_data = fetch_gene_info_simple(gene_ids)
+    
+    # Load to database
+    load_to_database(genes_data)
+    
+    print("\n🎉 Success!")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,38 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Data files (don't include in image)
+data/
+*.csv
+*.tsv
+
+# Documentation
+docs/
+*.md
+
+# Tests
+tests/
+test_*.py
+
+# Database files
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
