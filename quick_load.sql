@@ -1,5 +1,4 @@
--- OmicsHub Quick Data Loader
--- Usage: docker-compose exec -i db psql -U postgres -d omicshub < quick_load.sql
+-- OmicsHub Quick Data Loader: *docker-compose exec -i db psql -U postgres -d omicshub < quick_load.sql*
 
 -- Insert genes
 INSERT INTO genes (gene_id, symbol, description, chromosome, gene_type) VALUES
