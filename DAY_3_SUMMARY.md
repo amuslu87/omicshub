@@ -1,5 +1,4 @@
-**Production-ready REST API** serving ontology-annotated genomic data
-
+**Ontology-annotated Genomic Data**
 ## How to Run
 ```bash
 cd ~/omicshub
@@ -22,4 +21,3 @@ Access documentation: http://localhost:8000/docs
 - 1,014 GO terms
 - 29 functional annotations
 
-## Next: Day 4 - Docker Containerization
