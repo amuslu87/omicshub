@@ -1,4 +1,4 @@
--- OmicsHub Quick Data Loader - Run this inside Docker PostgreSQL
+-- OmicsHub Quick Data Loader
 -- Usage: docker-compose exec -i db psql -U postgres -d omicshub < quick_load.sql
 
 -- Insert genes
@@ -77,17 +77,4 @@ INSERT INTO gene_go_annotations (gene_id, go_id, evidence_code, source) VALUES
 (5594, 'GO:0004672', 'IDA', 'UniProt')
 ON CONFLICT DO NOTHING;
 
--- Verify data loaded
-\echo '=================================================='
-\echo 'Data Loading Summary:'
-\echo '=================================================='
-SELECT 'Genes:' as table_name, COUNT(*) as record_count FROM genes
-UNION ALL
-SELECT 'GO Terms:', COUNT(*) FROM go_terms
-UNION ALL
-SELECT 'Annotations:', COUNT(*) FROM gene_go_annotations;
-
-\echo ''
-\echo 'Sample Data:'
-\echo '=================================================='
-SELECT symbol, description FROM genes LIMIT 5;
+-- Verify data loaded!
