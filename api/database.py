@@ -12,8 +12,8 @@ DB_CONFIG = {
     'host': os.getenv('DATABASE_HOST', 'localhost'),
     'database': os.getenv('DATABASE_NAME', 'omicshub'),
     'user': os.getenv('DATABASE_USER', 'postgres'),
-    'password': os.getenv('DATABASE_PASSWORD', '7856'),
-    'port': int(os.getenv('DATABASE_PORT', '5432'))
+    'password': os.getenv('DATABASE_PASSWORD', 'xxxxxx'),
+    'port': int(os.getenv('DATABASE_PORT', 'xxxx'))
 }
 
 @contextmanager
