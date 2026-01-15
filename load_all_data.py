@@ -15,7 +15,7 @@ DB_CONFIG = {
     'port': os.getenv('DATABASE_PORT', '5432'),
     'database': os.getenv('DATABASE_NAME', 'omicshub'),
     'user': os.getenv('DATABASE_USER', 'postgres'),
-    'password': os.getenv('DATABASE_PASSWORD', '7856')
+    'password': os.getenv('DATABASE_PASSWORD', 'xxxx')
 }
 
 def get_connection():
