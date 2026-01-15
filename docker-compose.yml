@@ -7,13 +7,13 @@ services:
     container_name: omicshub-db
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 7856
+      POSTGRES_PASSWORD: xxxxxx
       POSTGRES_DB: omicshub
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/init-db:/docker-entrypoint-initdb.d
     ports:
-      - "5432:5432"
+      - "54xx:54xx"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -33,7 +33,7 @@ services:
       DATABASE_PORT: 5432
       DATABASE_NAME: omicshub
       DATABASE_USER: postgres
-      DATABASE_PASSWORD: 7856
+      DATABASE_PASSWORD: xxxxxxx
     ports:
       - "8000:8000"
     depends_on:
