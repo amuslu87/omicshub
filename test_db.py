@@ -5,7 +5,7 @@ try:
         host='localhost',
         database='omicshub',
         user='postgres',
-        password='7856'
+        password='xxxxxx'
     )
     print('✅ Connected to PostgreSQL!')
     conn.close()
