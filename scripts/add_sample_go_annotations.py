@@ -1,7 +1,3 @@
-"""
-OmicsHub - Add Sample GO Annotations
-Manually add well-known GO annotations for demonstration
-"""
 
 import psycopg2
 
@@ -9,7 +5,7 @@ DB_CONFIG = {
     'host': 'localhost',
     'database': 'omicshub',
     'user': 'postgres',
-    'password': '7856'
+    'password': 'xxxxx'
 }
 
 # Curated GO annotations for cancer genes
