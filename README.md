@@ -58,14 +58,6 @@ Key Libraries:
   - psycopg2-binary 2.9.11
   - fastapi 0.128.0
 
-🛠️ **Repository Structure**
-omicshub/
- 
-  ├── scripts/              # ETL and data ingestion scripts
-  ├── database/             # Schema definitions and migrations
-  ├── api/                  # API layer (in progress)
-  ├── requirements.txt      # Python dependencies
-  └── README.md
 
  🚀 **Quick Start**
 *Clone the repository and set up the local environment:*
