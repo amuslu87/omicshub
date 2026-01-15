@@ -3,14 +3,14 @@ version: '3.8'
 services:
   # PostgreSQL Database
   db:
-    image: postgres:16
+    image: postgres:xx
     container_name: omicshub-nextflow-db
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 7856
+      POSTGRES_PASSWORD: xxxxxxx
       POSTGRES_DB: omicshub
     ports:
-      - "5432:5432"
+      - "54xx:54xx"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/init-db:/docker-entrypoint-initdb.d
@@ -33,10 +33,10 @@ services:
         condition: service_healthy
     environment:
       DATABASE_HOST: db
-      DATABASE_PORT: 5432
+      DATABASE_PORT: 54xx
       DATABASE_NAME: omicshub
       DATABASE_USER: postgres
-      DATABASE_PASSWORD: 7856
+      DATABASE_PASSWORD: xxxxxx
       NXF_WORK: /omicshub/work
     volumes:
       - ./:/omicshub
