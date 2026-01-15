@@ -62,7 +62,7 @@ Key Libraries:
  🚀 **Quick Start**
 *Clone the repository and set up the local environment:*
 
-   git clone git@github.com:amuslu87/omicshub.git
+   git clone **<git@github.com:amuslu87/omicshub.git>**
    cd omicshub
 
    python3 -m venv venv
