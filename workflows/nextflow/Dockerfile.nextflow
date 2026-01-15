@@ -1,0 +1,36 @@
+FROM python:3.12-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    default-jre \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Nextflow
+RUN curl -s https://get.nextflow.io | bash \
+    && mv nextflow /usr/local/bin/ \
+    && chmod +x /usr/local/bin/nextflow
+
+# Set working directory
+WORKDIR /omicshub
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy pipeline files
+COPY main.nf .
+COPY nextflow.config .
+
+# Create directories
+RUN mkdir -p scripts api results
+
+# Set environment variables
+ENV NXF_HOME=/omicshub/.nextflow
+ENV JAVA_OPTS="-Xms512m -Xmx2g"
+
+# Default command
+CMD ["nextflow", "run", "main.nf"]

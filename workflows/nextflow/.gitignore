@@ -1,0 +1,42 @@
+# --- Secrets ---
+.env
+*.env
+
+# --- Nextflow ---
+.nextflow/
+.nextflow.log*
+work/
+trace.txt
+timeline.html
+report.html
+dag.html
+execution_*.html
+
+# --- Data ---
+data/
+results/
+*.csv
+*.tsv
+*.json
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# --- R ---
+.Rhistory
+.RData
+.Rproj.user/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Backup/Test files ---
+*_broken*
+*_backup*
+test_simple.nf

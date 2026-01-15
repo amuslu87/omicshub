@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16
+    container_name: omicshub-nextflow-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 7856
+      POSTGRES_DB: omicshub
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - omicshub-network
+
+  # Nextflow Pipeline Runner
+  nextflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.nextflow
+    container_name: omicshub-nextflow
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: omicshub
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: 7856
+      NXF_WORK: /omicshub/work
+    volumes:
+      - ./:/omicshub
+      - nextflow_work:/omicshub/work
+      - nextflow_cache:/omicshub/.nextflow
+    networks:
+      - omicshub-network
+    command: >
+      sh -c "
+        echo 'Waiting for database...' &&
+        sleep 10 &&
+        echo 'Running Nextflow pipeline...' &&
+        nextflow run main.nf -resume
+      "
+
+  # Optional: Nextflow Web UI (Tower/Seqera Platform)
+  # Uncomment if you want to use Nextflow Tower locally
+  # tower:
+  #   image: seqera/tower-backend:latest
+  #   container_name: omicshub-tower
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - omicshub-network
+
+volumes:
+  postgres_data:
+    driver: local
+  nextflow_work:
+    driver: local
+  nextflow_cache:
+    driver: local
+
+networks:
+  omicshub-network:
+    driver: bridge
