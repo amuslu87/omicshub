@@ -13,7 +13,7 @@ DB_CONFIG = {
     'host': 'localhost',
     'database': 'omicshub',
     'user': 'postgres',
-    'password': '7856'
+    'password': 'xxxxxx'
 }
 
 def download_go_annotations():
