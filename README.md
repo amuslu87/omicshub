@@ -70,7 +70,7 @@ Key Libraries:
 
    pip install -r requirements.txt
 
-**Run the gene ingestion pipeline**:
+**Run the gene ingestion pipeline or the *main.nf* from Nextflow folder**:
 
  * python scripts/fetch_genes_simple.py
  * python scripts/add_sample_go_annotations.py
