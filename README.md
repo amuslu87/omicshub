@@ -1,9 +1,9 @@
-🧬 **OmicsHub: A Scalable, Ontology-Aware Genomics Data Infrastructure Platform**
+ **OmicsHub: A Scalable, Ontology-Aware Genomics Data Infrastructure Platform**  🧬
 
 OmicsHub is a computational infrastructure project designed to demonstrate end-to-end data engineering capabilities for genomics and biological research. The repository focuses on building production-oriented pipelines that integrate biological ontologies, public genomics resources, and modern backend technologies.
 
 
- 🎯 **Project Overview**
+  **Project Overview**
 
 The primary goals of OmicsHub are to:
 * Design a normalized relational data model for genomic entities
@@ -12,7 +12,7 @@ The primary goals of OmicsHub are to:
 * Expose structured biological data through programmatic interfaces
 * Demonstrate containerized, cloud-ready execution patterns
 
- ✨ **Current Capabilities**
+ **Current Capabilities**
 
 OmicsHub currently demonstrates the following competencies:
 * Biological data modeling with ontology-aware schema design
@@ -21,7 +21,7 @@ OmicsHub currently demonstrates the following competencies:
 * Relational database design and validation
 * Backend-ready architecture suitable for API and analytics layers
 
- 🎉 **Current Features**
+ **Current Features**
 
 * Integration with the NCBI Entrez API for gene metadata retrieval
 * PostgreSQL database with a normalized gene schema
@@ -29,7 +29,7 @@ OmicsHub currently demonstrates the following competencies:
 * Verified database connectivity using Python-based clients
 * Modular project structure designed for extension
  
- 🗄️ **Database Schema**
+  **Database Schema**
 
 *Genes Table*:
 | Column Name | Type      | Description                 |
@@ -42,13 +42,13 @@ OmicsHub currently demonstrates the following competencies:
 | fetch_date  | TIMESTAMP | Data retrieval timestamp    |
 
 
-📊 **Sample Data**
+ **Sample Data**
 
 The following genes are currently ingested and validated within the database: BRCA1, BRCA2, TP53, PTEN, KRAS, EGFR, NRAS, BRAF, PIK3CA, MAPK1
 
 These genes were selected to support downstream use cases such as oncology-focused analytics, pathway annotation, and ontology-driven querying.
 
- 🛠️ **Technology Stack**
+ **Technology Stack**
 
 Programming Language: Python 3.13.2
 Database: PostgreSQL 16
@@ -59,7 +59,7 @@ Key Libraries:
   - fastapi 0.128.0
 
 
- 🚀 **Quick Start**
+  **Quick Start**
 *Clone the repository and set up the local environment:*
 
    git clone **<git@github.com:amuslu87/omicshub.git>**
@@ -78,5 +78,5 @@ Key Libraries:
  * python scripts/link_genes_to_go.py
 
   
-  
+  # Ends..
 
