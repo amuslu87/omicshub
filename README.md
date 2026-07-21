@@ -1,6 +1,6 @@
  **OmicsHub: A Scalable, Ontology-Aware Genomics Data Infrastructure Platform**  🧬
 
-OmicsHub is a computational infrastructure project designed to demonstrate end-to-end data engineering capabilities for genomics and biological research. The repository focuses on building production-oriented pipelines that integrate biological ontologies, public genomics resources, and modern backend technologies.
+OmicsHub is a computational infrastructure project designed for genomics and biological research. The repository focuses on building production-oriented pipelines that integrate biological ontologies, public genomics resources, and modern backend technologies.
 
 
   **Project Overview**
