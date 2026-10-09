@@ -1,5 +1,5 @@
 
-import psycopg2
+import psycopg2  # check package updates
 
 DB_CONFIG = {
     'host': 'localhost',
